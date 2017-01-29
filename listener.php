@@ -21,9 +21,7 @@ $mqtt->close();
 
 function procmsg($topic, $msg){
 	echo "$msg\n";
-	for ($i = 16; $i <= 23; $i++) {
-		shell_exec("sudo sh -c 'echo 0 > /sys/class/gpio/gpio10$i/value'");
-		shell_exec("sudo sh -c 'echo 1 > /sys/class/gpio/gpio10$i/value'");
-	}
+	shell_exec("sudo sh -c 'echo 0 > /sys/class/gpio/gpio1021/value'");
+	shell_exec("sudo sh -c 'echo 1 > /sys/class/gpio/gpio1021/value'");
 }
 ?>
