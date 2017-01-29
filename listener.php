@@ -30,11 +30,19 @@ function procmsg($topic, $msg){
 	global $mqtt;
 	echo $msg . "\n";
 	if ($msg === "get") {
-		$value = shell_exec("cat /sys/class/gpio/gpio1017/value");
-		$mqtt->publish("/garage/door/status", $value, 0);
+		for ($i = 16; $i <= 23; $i++) {
+			$value = shell_exec("cat /sys/class/gpio/gpio10$i/value");
+			$mqtt->publish("/garage/door/status", $value, 0);
+			echo $i ."\n";
+			sleep(3);
+		}
 	} else {
-		shell_exec("sudo sh -c 'echo 1 > /sys/class/gpio/gpio1022/value'");
-		shell_exec("sudo sh -c 'echo 0 > /sys/class/gpio/gpio1022/value'");
+		for ($i = 16; $i <= 23; $i++) {
+			shell_exec("sudo sh -c 'echo 1 > /sys/class/gpio/gpio10$i/value'");
+			shell_exec("sudo sh -c 'echo 0 > /sys/class/gpio/gpio10$i/value'");
+			echo $i ."\n";
+			sleep(3);
+		}
 	}
 }
 ?>
