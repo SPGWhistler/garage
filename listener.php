@@ -20,6 +20,7 @@ while($mqtt->proc()){
 $mqtt->close();
 
 function procmsg($topic, $msg){
+	global $mqtt;
 	echo "$msg\n";
 	if ($msg === "get") {
 		$value = shell_exec("cat /sys/class/gpio/gpio1017/value");
