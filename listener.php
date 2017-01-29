@@ -21,7 +21,7 @@ $mqtt->close();
 
 function procmsg($topic, $msg){
 	echo "$msg\n";
-	if ($msg === "GET") {
+	if ($msg === "get") {
 		echo shell_exec("cat /sys/class/gpio/gpio1017/value");
 	} else {
 		shell_exec("sudo sh -c 'echo 0 > /sys/class/gpio/gpio1021/value'");
