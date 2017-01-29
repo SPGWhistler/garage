@@ -1,5 +1,11 @@
 bishbosh_server='192.168.1.214'
-bishbosh_clientId=garage_door
+bishbosh_clientId=garageDoor
+bishbosh_connect_cleanSession=0
+bishbosh_connect_willTopic='/will/garage'
+bishbosh_connect_willMessage='Garage died.'
+bishbosh_connect_willQoS=0
+bishbosh_connect_willRetain=1
+bishbosh_connect_keepAlive=5
 
 bishbosh_connection_handler_CONNACK()
 {
