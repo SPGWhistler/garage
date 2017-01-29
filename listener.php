@@ -21,7 +21,11 @@ $mqtt->close();
 
 function procmsg($topic, $msg){
 	echo "$msg\n";
-	shell_exec("sudo sh -c 'echo 0 > /sys/class/gpio/gpio1021/value'");
-	shell_exec("sudo sh -c 'echo 1 > /sys/class/gpio/gpio1021/value'");
+	if ($msg === "GET") {
+		echo shell_exec("cat /sys/class/gpio/gpio1017/value");
+	} else {
+		shell_exec("sudo sh -c 'echo 0 > /sys/class/gpio/gpio1021/value'");
+		shell_exec("sudo sh -c 'echo 1 > /sys/class/gpio/gpio1021/value'");
+	}
 }
 ?>
