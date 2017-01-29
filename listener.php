@@ -26,8 +26,8 @@ function procmsg($topic, $msg){
 		$value = shell_exec("cat /sys/class/gpio/gpio1017/value");
 		$mqtt->publish("/garage", $value, 0);
 	} else {
-		shell_exec("sudo sh -c 'echo 0 > /sys/class/gpio/gpio1021/value'");
-		shell_exec("sudo sh -c 'echo 1 > /sys/class/gpio/gpio1021/value'");
+		shell_exec("sudo sh -c 'echo 0 > /sys/class/gpio/gpio1022/value'");
+		shell_exec("sudo sh -c 'echo 1 > /sys/class/gpio/gpio1022/value'");
 	}
 }
 ?>
