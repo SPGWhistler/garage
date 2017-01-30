@@ -29,9 +29,14 @@ while($mqtt->proc()){
 	//Loop here so we continue running
 	$cur = shell_exec("cat /sys/class/gpio/gpio$closedSensor/value");
 	if ($cur !== $last) {
+		$last = $cur;
 		$mqtt->publish("/garage/door/status", $last, 0);
+		if ($last === 0) {
+			echo "Garage door is open.\n";
+		} else {
+			echo "Garage door is closed.\n";
+		}
 	}
-	$cur = $last;
 }
 
 $mqtt->close();
