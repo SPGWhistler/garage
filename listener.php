@@ -23,9 +23,15 @@ $topics['/garage/door/command'] = array(
 );
 $mqtt->subscribe($topics, 0);
 
+$last = 0;
+$cur = 0;
 while($mqtt->proc()){
 	//Loop here so we continue running
-	echo date('u') . "\n";
+	$cur = shell_exec("cat /sys/class/gpio/gpio$closedSensor/value");
+	if ($cur !== $last) {
+		$mqtt->publish("/garage/door/status", $last, 0);
+	}
+	$cur = $last;
 }
 
 $mqtt->close();
@@ -33,12 +39,7 @@ $mqtt->close();
 function procmsg($topic, $msg){
 	global $mqtt, $closedSensor, $door;
 	echo $msg . "\n";
-	if ($msg === "get") {
-		$value = shell_exec("cat /sys/class/gpio/gpio$closedSensor/value");
-		$mqtt->publish("/garage/door/status", $value, 0);
-	} else {
-		shell_exec("sudo sh -c 'echo 0 > /sys/class/gpio/gpio$door/value'");
-		shell_exec("sudo sh -c 'echo 1 > /sys/class/gpio/gpio$door/value'");
-	}
+	shell_exec("sudo sh -c 'echo 0 > /sys/class/gpio/gpio$door/value'");
+	shell_exec("sudo sh -c 'echo 1 > /sys/class/gpio/gpio$door/value'");
 }
 ?>
