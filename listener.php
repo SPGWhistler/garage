@@ -5,7 +5,7 @@ require("phpMQTT.php");
 for ($i = 16; $i <= 23; $i++) {
 	shell_exec("sudo sh -c 'echo 10$i > /sys/class/gpio/export'");
 	shell_exec("sudo sh -c 'echo out > /sys/class/gpio/gpio10$i/direction'");
-	shell_exec("sudo sh -c 'echo 0 > /sys/class/gpio/gpio10$i/value'");
+	shell_exec("sudo sh -c 'echo 1 > /sys/class/gpio/gpio10$i/value'");
 }
 
 $mqtt = new phpMQTT("192.168.1.214", 1883, "garageDoor");
