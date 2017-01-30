@@ -25,6 +25,7 @@ $mqtt->subscribe($topics, 0);
 
 while($mqtt->proc()){
 	//Loop here so we continue running
+	echo date('u') . "\n";
 }
 
 $mqtt->close();
